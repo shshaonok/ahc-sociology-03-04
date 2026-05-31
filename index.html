@@ -355,7 +355,7 @@
   </div>
 </div>
 
-<!-- hero section with group photo -->
+<!-- hero section with group photo - updated to groupphoto.png -->
 <section class="hero">
   <div class="container">
     <div class="hero-content">
@@ -364,8 +364,8 @@
       </div>
       <h1 class="hero-title">সমাজবিজ্ঞান বিভাগ<br>সরকারি আজিজুল হক কলেজ, বগুড়া</h1>
       <p class="hero-sub">বন্ধুত্বের মেলবন্ধন, স্মৃতির অমলিন প্রহর</p>
-      <!-- Group photo: groupphoto.jpg -->
-      <img class="group-photo" src="groupphoto.jpg" alt="Batch Group Photo 2003-04" onerror="this.onerror=null;this.src='https://placehold.co/1200x400?text=গ্রুপ+ছবি+উপলব্ধ+নয়';">
+      <!-- Group photo: groupphoto.png as specified -->
+      <img class="group-photo" src="groupphoto.png" alt="Batch Group Photo 2003-04" onerror="this.onerror=null;this.src='https://placehold.co/1200x400?text=গ্রুপ+ছবি+উপলব্ধ+নয়';">
       <p style="margin-top: 1rem; font-size:0.9rem;"><i class="fas fa-calendar-alt"></i> ২০০৩-০৪ সেশনের প্রাক্তন শিক্ষার্থীরা — মিলিত হউক আবারো</p>
     </div>
   </div>
@@ -428,14 +428,15 @@
     { name: "মোঃ নুর- ই-আজম", address: "এ্যাসিস্ট্যান্ট জজ কোর্ট, বরগুনা", phone: "01725-825528", blood: "AB+" }
   ];
 
-  // Function to format blood display with standard badge style (normalize +-)
+  // Function to format blood display with consistent style (normalize +- and special notations)
   function formatBloodGroup(bg) {
     let raw = bg.trim();
-    // keep as is but beautify
-    if (raw === "B(+ve)") return "B+";
-    if (raw === "B(+)") return "B+";
+    // normalize variations
+    if (raw === "B(+ve)" || raw === "B(+)") return "B+";
     if (raw === "O(+)") return "O+";
     if (raw === "AB(+)") return "AB+";
+    if (raw === "B(-)") return "B-";
+    // keep as is for others
     return raw;
   }
 
@@ -447,13 +448,9 @@
     for (let i = 0; i < membersData.length; i++) {
       const m = membersData[i];
       const bloodDisplay = formatBloodGroup(m.blood);
-      // Add subtle icons for blood badge
+      // subtle icon based on blood type
       let bloodIcon = '<i class="fas fa-tint"></i>';
-      if(bloodDisplay.includes('A+')) bloodIcon = '<i class="fas fa-tint"></i>';
-      else if(bloodDisplay.includes('B+')) bloodIcon = '<i class="fas fa-tint"></i>';
-      else if(bloodDisplay.includes('O+')) bloodIcon = '<i class="fas fa-tint"></i>';
-      else if(bloodDisplay.includes('AB+')) bloodIcon = '<i class="fas fa-tint"></i>';
-      else if(bloodDisplay.includes('-')) bloodIcon = '<i class="fas fa-tint-slash"></i>';
+      if (bloodDisplay.includes('-')) bloodIcon = '<i class="fas fa-tint-slash"></i>';
       
       cardsHTML += `
         <div class="member-card">
@@ -501,17 +498,9 @@
     });
   }
 
-  // if images are missing we already used onerror fallback
-  // optional: add console info
   window.addEventListener('DOMContentLoaded', () => {
     renderMembers();
-    // Additional check for college monogram / group photo - just in case network issues handled by onerror
-    // Ensure any unsplash placeholder does not break style
   });
 </script>
-
-<!-- note: the image sources "সরকারি_আজিজুল_হক_কলেজের_মনোগ্রাম.png" and "groupphoto.png
-" are used as per requirement. 
-     placeholder fallback ensures UX even if missing -->
 </body>
-  </html>
+</html>
